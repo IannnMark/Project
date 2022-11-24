@@ -1,1 +1,1 @@
-console.log('tang ina mo morgs ang payat mo')
+console.log('tang ina mo sioc ang itim itim mo')
