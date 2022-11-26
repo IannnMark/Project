@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\CustomerController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
@@ -22,11 +22,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'user'], function(){
- 
+Route::group(['prefix' => 'user'], function () {
+
     //routes for guest users who wants  to signup to app
-    Route::group(['middleware' => 'guest'], function(){
-       
+    Route::group(['middleware' => 'guest'], function () {
+
         //routes for customer signup
 
         //GET Request for Customer sign up views 
@@ -45,29 +45,32 @@ Route::group(['prefix' => 'user'], function(){
         //POST REQUEST for user sign in
         Route::post('/signins', [LoginController::class, 'postSignin'])->name('user.signins');
     });
- 
+
     //Route Group for User Customer
-    Route::group(['middleware' => 'role:customer'], function(){
+    Route::group(['middleware' => 'role:customer'], function () {
 
         //routes for customer profile
         Route::get('/profile', [UserController::class, 'getProfile'])->name('user.profile');
     });
 
     //Route Group for Employee
-    Route::group(['middleware' => 'role:employee'], function(){
+    Route::group(['middleware' => 'role:employee'], function () {
 
         // GET REQUEST FOR user employee profile
         Route::get('/employee-profile', [UserController::class, 'getEmployeeProfile'])->name('employee.profile');
 
         Route::get('product', [ProductController::class, 'index'])->name('product.index');
 
-    });
+        // Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
 
+
+       
+        Route::resource('customer', 'CustomerController');
+        route::view('/customer-index', 'Customer.Index');
+    });
 });
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('user.logout');
 Route::fallback(function () {
     return redirect()->back();
-    });
-    
-
+});

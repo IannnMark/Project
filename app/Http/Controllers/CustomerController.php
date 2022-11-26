@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use View;
 
 class CustomerController extends Controller
 {
@@ -14,7 +15,17 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        return View::make('customer.index');
+        //  $customers = Customer::orderBy('id')->get();
+        // return response()->json($customer);
+    }
+
+    public function getCustomerAll(Request $request)
+    {
+        //if ($request->ajax()){
+        $customers = Customer::orderBy('id')->get();
+        return response()->json($customers);
+        //}
     }
 
     /**

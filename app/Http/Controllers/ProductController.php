@@ -15,11 +15,12 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-       return View::make('product.index');
+        return View::make('product.index');
     }
 
-    public function getProduct(){
-        
+    public function getProduct()
+    {
+
         $products = Product::orderBy('id', 'ASC')->get();
         return response()->json($products);
     }
